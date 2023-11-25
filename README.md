@@ -420,6 +420,121 @@ let nuevaVentana = window.open("", "nuevaVentana", "width=800,height=600");
 ## 2. ¿Qué se entiende por patrón de diseño de prototipo?
 Es el prototipo de un objeto, es como crear un objeto a partir de una plantilla que tienes definida en el objeto (pasándole unos parámetros) y ya podrías creas el objeto con sus valores correspondientes
 
+## 5. En JavaScript, ¿con cuántos `métodos diferentes puedes crear un objeto`?
+    
+- Con Object
+    
+    Ejemplo:
+    
+    ```jsx
+    // Crear un objeto utilizando el constructor Object
+    const persona = new Object();
+    
+    persona.nombre = "Juan";
+    persona.edad = 30;
+    
+    persona.saludar = function() {
+      console.log("Hola, soy " + this.nombre + " y tengo " + this.edad + " años.");
+    };
+    
+    persona.saludar();
+    ```
+    
+- Usando Class
+    
+    Ejemplo:
+    
+    ```jsx
+    // Crear un objeto utilizando la declaración de clase (ES6+)
+    class PersonaClase {
+      constructor(nombre, edad) {
+        this.nombre = nombre;
+        this.edad = edad;
+      }
+    
+      saludar() {
+        console.log("Hola, soy " + this.nombre + " y tengo " + this.edad + " años.");
+      }
+    }
+    
+    const personaConClase = new PersonaClase("Carlos", 40);
+    personaConClase.saludar();
+    ```
+    
+- Método create()
+    
+   Ejemplo:
+    
+    ```jsx
+    // Crear un objeto utilizando Object.create()
+    const prototipoPersona = {
+      saludar: function() {
+        console.log("Hola, soy " + this.nombre + " y tengo " + this.edad + " años.");
+      }
+    };
+    
+    const personaConCreate = Object.create(prototipoPersona);
+    personaConCreate.nombre = "Ana";
+    personaConCreate.edad = 28;
+    personaConCreate.saludar();
+    ```
+    
+- con Object Literals
+    
+   Ejemplo:
+    
+    ```jsx
+    // Crear un objeto utilizando Object Literals
+    const persona = {
+      nombre: "Juan",
+      edad: 30,
+      saludar: function() {
+        console.log("Hola, soy " + this.nombre + " y tengo " + this.edad + " años.");
+      }
+    };
+    
+    persona.saludar();
+    ```
+    
+- Usando function()
+    
+   Ejemplo:
+    
+    ```jsx
+    // Crear un objeto utilizando una función
+    function crearPersona(nombre, edad) {
+      const persona = {};
+      persona.nombre = nombre;
+      persona.edad = edad;
+      persona.saludar = function() {
+        console.log("Hola, soy " + this.nombre + " y tengo " + this.edad + " años.");
+      };
+      return persona;
+    }
+    
+    const nuevaPersona = crearPersona("Maria", 25);
+    nuevaPersona.saludar();
+    ```
+    
+- Usando el Objeto constructor
+    
+   Ejemplo:
+    
+    ```jsx
+    // Crear un objeto utilizando un objeto constructor
+    function Persona(nombre, edad) {
+      this.nombre = nombre;
+      this.edad = edad;
+      this.saludar = function() {
+        console.log("Hola, soy " + this.nombre + " y tengo " + this.edad + " años.");
+      };
+    }
+    
+    const otraPersona = new Persona("Pedro", 35);
+    otraPersona.saludar();
+    ```
+    
+
 ## 6. ¿Qué son las promesas?
 
 Las promesas se utilizan para manejar operaciones asíncronas, es decir, que pueden tardar tiempo en resolverse como por ejemplo una petición a un servidor.
@@ -477,6 +592,49 @@ const nuevoSet =new WeakSet([objeto1])
 nuevoSet.add(objeto2);
 ```
 
+## 12.  ¿Qué es la `desestructuración` de objetos?
+    
+La desestructuración de objetos es una nueva forma de extraer elementos de un objeto o un array
+    
+Ejemplo antes de la versión ES6, sin desestructuración:
+    
+```jsx
+    const usuario = {
+      nombre: "Juan",
+      edad: 30,
+      ciudad: "Buenos Aires"
+    };
+    
+    //Extración manual de las propiedades
+    const nombre = usuario.nombre;
+    const edad = usuario.edad;
+    const ciudad = usuario.ciudad;
+    
+    console.log(nombre); //Juan
+    console.log(edad); //30
+    console.log(ciudades); //Buenos Aires
+```
+    
+Ejemplo de desestructuración:
+    
+```jsx
+    const usuario = {
+      nombre: "Juan",
+      edad: 30,
+      ciudad: "Buenos Aires"
+    };
+    
+    //Desestructuración de objetos
+    const {nombre, edad, ciudad } = usuario;
+    
+    // Uso de las variables desestructuradas
+    console.log(nombre);  // Juan
+    console.log(edad);    // 30
+    console.log(ciudad);  // Buenos Aires
+```
+    
+La desestructuración no solo es útil para objetos, sino que también se puede aplicar a matrices o arrays. Proporciona una forma más clara y concisa de trabajar con datos estructurados en JavaScript.
+
 ## 13. Diferencia entre herencia prototípica y clásica
 
 En la herencia prototípica, los objetos heredan directamente propiedades y métodos de otros objetos. Cada objeto tiene una propiedad privada (referida como su "Prototype") que mantiene un enlace a otro objeto llamado su prototipo. Un ejemplo de herencia prototípica es:
@@ -524,6 +682,40 @@ miPerro.ladra(); // Rex está ladrando
 
 ## 16. ¿Es JavaScript un lenguaje de paso por referencia o de paso por valor?
 JavaScript para las variables usa un paso por valor, aunque en los objetos se pasa por referencia pero esta sigue siendo pasada por valor, por lo que recibe una copia, estas modificaciones que se hagan a la copia también son afectadas a la original
+
+## 19.  ¿Cuál es el papel de los `scripts diferidos` en JavaScript?
+    
+Los scripts diferidos en JavaScript son scripts que no se ejecutan tan pronto como se cargan en la página web, sino que **se retrasan hasta que la página ha terminado de analizarse y construirse**.
+
+El uso del atributo `defer` en la etiqueta `<script>` se utiliza para lograr este comportamiento. El papel principal de los scripts diferidos es mejorar el rendimiento de la carga de la página web.
+
+ Aquí hay algunos puntos clave sobre el papel de los scripts diferidos:
+    
+1. **Retraso de la ejecución**: Los scripts diferidos no bloquean el análisis y renderizado de la página. Se descargan en segundo plano mientras el resto de la página se analiza y se construye.
+
+
+2. **Ejecución en orden**: Aunque los scripts se descargan en paralelo, se ejecutan en el orden en el que aparecen en el documento HTML. Esto significa que el primer script diferido en el HTML se ejecutará antes que el segundo, y así sucesivamente.
+
+3. **Mejora del rendimiento de carga**: Al retrasar la ejecución de scripts, se puede mejorar la percepción del tiempo de carga para los usuarios, ya que la página principal se carga y se muestra más rápidamente. Esto es especialmente útil en páginas con muchos scripts o contenido extenso.
+    
+Ejemplo:
+    
+```html
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mi Página</title>
+        <!-- Otros elementos del encabezado -->
+        <script defer src="script1.js"></script>
+        <script defer src="script2.js"></script>
+    </head>
+    <body>
+        <!-- Contenido de la página -->
+    </body>
+    </html>
+```
 
 ## 20. ¿Qué hay que hacer para poner en práctica el Alcance Léxico?
 
